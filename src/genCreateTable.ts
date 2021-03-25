@@ -1,6 +1,6 @@
 import { Model } from '@rotcare/codegen';
 
-export function generateCreateTable(model: Model) {
+export function genCreateTable(model: Model) {
     if (!model.tableName) {
         throw new Error(`model ${model.qualifiedName} is not a table`);
     }

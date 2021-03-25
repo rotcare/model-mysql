@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "ci",
+    "workspaces": [
+        ".."
+    ],
+    "dependencies": {
+        "@rotcare/codegen": "git://github.com/rotcare/codegen.git",
+        "@rotcare/project": "git://github.com/rotcare/project.git",
+        "@rotcare/register": "git://github.com/rotcare/register.git"
+    },
+    "resolutions": {
+        "@rotcare/codegen": "git://github.com/rotcare/codegen.git",
+        "@rotcare/project": "git://github.com/rotcare/project.git",
+        "@rotcare/register": "git://github.com/rotcare/register.git"
+    },
+    "scripts": {
+        "postinstall": "cd .. && rm -rf node_modules && ln -s .ci/node_modules"
+    }
+}

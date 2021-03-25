@@ -18,10 +18,10 @@
     },
     "peerDependencies": {
         "@rotcare/codegen": "*",
-        "@rotcare/project": "*"
+        "@rotcare/register": "*"
     },
     "scripts": {
-        "test": "TS_NODE_IGNORE=' ' yarn mocha -r @rotcare/project/register './src/**/*_test.ts'",
-        "ci": "tsc && yarn test"
+        "test": "TS_NODE_IGNORE=' ' yarn mocha -r @rotcare/register './src/**/*_test.ts'",
+        "ci": "tsc --noEmit && yarn test"
     }
 }

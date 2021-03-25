@@ -1,2 +1,2 @@
 export * from './mysql';
-export * from './generateCreateTable';
+export * from './genCreateTable';
