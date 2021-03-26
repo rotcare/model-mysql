@@ -1,5 +1,5 @@
 import { ensureTableDeleted } from './ensureTableDeleted';
-import { readBackModel } from './readBackModels';
+import { readBackModels } from './readBackModels';
 import { should } from './should';
 import { strict } from 'assert';
 
@@ -11,8 +11,8 @@ it(
             id varchar(255) PRIMARY KEY,
             name varchar(255),
             price int)`);
-        const models = await readBackModel(conn, 'test');
-        const product = models.get('Product')!;
+        const models = await readBackModels(conn, 'test');
+        const product = models.Product!;
         strict.deepEqual(product.properties, [
             {
                 name: 'id',

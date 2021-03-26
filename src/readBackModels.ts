@@ -1,14 +1,15 @@
 import { Model } from '@rotcare/codegen';
 import * as mysql from 'mysql2/promise';
+import { defaultSchema } from './defaultSchema';
 
-export async function readBackModel(conn: mysql.Connection, schema: string) {
-    const models = new Map<string, Model>();
-    await fillColumns(conn, models, schema);
+export async function readBackModels(conn: mysql.Connection, schema?: string) {
+    const models: Record<string, Model> = {};
+    await fillColumns(conn, models, schema || defaultSchema.get());
     return models;
 }
 
-function getModel(models: Map<string, Model>, tableName: string) {
-    let model = models.get(tableName);
+function getModel(models: Record<string, Model>, tableName: string) {
+    let model = models[tableName];
     if (!model) {
         model = {
             cacheHash: 0,
@@ -20,12 +21,12 @@ function getModel(models: Map<string, Model>, tableName: string) {
             methods: [],
             staticMethods: []
         };
-        models.set(tableName, model);
+        models[tableName] = model;
     }
     return model;
 }
 
-async function fillColumns(conn: mysql.Connection, models: Map<string, Model>, schema: string) {
+async function fillColumns(conn: mysql.Connection, models: Record<string, Model>, schema: string) {
     const [columns] = await conn.execute('SELECT * FROM information_schema.columns WHERE table_schema = ?', [schema])
     for (const column of columns as any) {
         const model = getModel(models, column.TABLE_NAME);
