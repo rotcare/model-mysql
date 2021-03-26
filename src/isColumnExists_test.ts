@@ -6,7 +6,10 @@ import { isColumnExists } from './isColumnExists';
 it(
     'isColumnExists with not existing table',
     should('tell it does not exists', async (conn) => {
-        strict.equal(await isColumnExists(conn, 'test', 'blah', 'id'), false);
+        strict.equal(
+            await isColumnExists(conn, { schema: 'test', table: 'abc', column: 'abcd' }),
+            false,
+        );
     }),
 );
 
@@ -18,7 +21,13 @@ it(
             id varchar(255) PRIMARY KEY,
             name varchar(255),
             price int)`);
-        strict.equal(await isColumnExists(conn, 'test', 'Product', 'id'), true);
-        strict.equal(await isColumnExists(conn, 'test', 'Product', 'abcd'), false);
+        strict.equal(
+            await isColumnExists(conn, { schema: 'test', table: 'Product', column: 'id' }),
+            true,
+        );
+        strict.equal(
+            await isColumnExists(conn, { schema: 'test', table: 'Product', column: 'abcd' }),
+            false,
+        );
     }),
 );
