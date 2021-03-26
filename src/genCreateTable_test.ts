@@ -2,6 +2,7 @@ import { codegen, Model } from "@rotcare/codegen"
 import { genCreateTable } from "./genCreateTable";
 import { Product } from "./testModels/Product"
 import * as mysql from 'mysql2/promise';
+import { ensureTableDeleted } from "./ensureTableDeleted";
 
 const createProduct = codegen((product: Model<Product>) => {
     return `return ${JSON.stringify(genCreateTable(product))}`;
@@ -21,7 +22,7 @@ describe('genCreateTable', () => {
         conn.destroy();
     });
     it('columns', async () => {
-        await conn.execute('DROP TABLE IF EXISTS Product');
+        ensureTableDeleted(conn, 'Product');
         await conn.execute(createProduct);
     })
 })
