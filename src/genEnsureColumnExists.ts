@@ -1,8 +1,8 @@
 import { Model } from "@rotcare/codegen";
-import * as mysql from 'mysql2/promise';
 import { genAddColumn } from "./genAddColumn";
+import { SqlExecutor } from "./SqlExecutor";
 
-export function genEnsureColumnExists(model: Model, columnName: string): (conn: mysql.Connection, schema?: string) => Promise<void> {
+export function genEnsureColumnExists(model: Model, columnName: string): (conn: SqlExecutor, schema?: string) => Promise<void> {
     return `return async (conn, schema) => {
         const { isColumnExists } = require('@rotcare/model-mysql');
         if (await isColumnExists(conn, { schema, table: '${model.tableName}', column: '${columnName}' })) {

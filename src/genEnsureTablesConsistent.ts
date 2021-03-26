@@ -1,7 +1,7 @@
 import { Model } from "@rotcare/codegen";
-import * as mysql from 'mysql2/promise';
+import { SqlExecutor } from "./SqlExecutor";
 
-export function genEnsureTablesConsistent(models: Model[]): (conn: mysql.Connection, schema?: string) => Promise<void> {
+export function genEnsureTablesConsistent(models: Model[]): (conn: SqlExecutor, schema?: string) => Promise<void> {
     const groupedModels: Record<string, Model> = {};
     for (const model of models) {
         groupedModels[model.tableName] = model;

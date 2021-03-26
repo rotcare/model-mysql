@@ -1,0 +1,1 @@
+export type SqlExecutor = { execute(sql: string, args?: any[]): Promise<any> };
