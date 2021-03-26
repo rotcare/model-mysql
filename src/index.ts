@@ -1,4 +1,5 @@
 export * from './mysql';
-export * from './genCreateTable';
+export * from './genEnsureTableExists';
+export * from './genEnsureColumnExists';
 export * from './isTableExists';
 export * from './isColumnExists';
